@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.1
+
+- Lower the minimum supported Home Assistant version to the tested 2026.1.2
+  release.
+- Add a reproducible Home Assistant 2026.1.2 compatibility test stack.
+- Add correctly sized standard and high-DPI ShelfWatch brand assets.
+
 ## 0.2.0
 
 Initial public ShelfWatch MVP:

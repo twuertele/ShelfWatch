@@ -6,6 +6,8 @@ ShelfWatch is a Home Assistant custom integration for Koha / LMSCloud library ac
 
 It logs in to the OPAC account page, reads the current checkouts from the HTML account view, and exposes due dates, counts, status, and checkout details as Home Assistant sensors.
 
+The minimum supported Home Assistant version is `2026.1.2`.
+
 ## Features
 
 - UI setup through Home Assistant config flow
