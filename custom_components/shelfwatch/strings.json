@@ -1,0 +1,107 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add ShelfWatch account",
+        "description": "Enter the Koha / LMSCloud OPAC account details.",
+        "data": {
+          "account_name": "Account name",
+          "base_url": "OPAC base URL",
+          "user_id": "User ID",
+          "password": "Password"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Reauthenticate ShelfWatch",
+        "description": "The OPAC rejected the stored credentials. Enter the current password.",
+        "data": {
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not connect to the OPAC.",
+      "invalid_auth": "The OPAC rejected the credentials.",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "already_configured": "This library account is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "ShelfWatch options",
+        "description": "Configure due-date evaluation, OPAC updates, and the optional reading-progress list. Enable keeping completed media to retain returned items in the list.",
+        "sections": {
+          "due_dates_and_updates": {
+            "name": "Due dates and updates",
+            "data": {
+              "due_soon_days": "Due soon threshold in days",
+              "update_interval_hours": "Update interval in hours"
+            },
+            "data_description": {
+              "due_soon_days": "Determines how many days before the due date a checkout is counted as due soon. The default is 7 days.",
+              "update_interval_hours": "Determines how often ShelfWatch retrieves current checkouts from the OPAC. Due-date sensors are also recalculated shortly after the local day changes."
+            }
+          },
+          "reading_progress": {
+            "name": "Reading progress and Todo list",
+            "data": {
+              "enable_todo_list": "Create reading progress Todo list",
+              "complete_returned_items": "Mark returned media as completed",
+              "keep_completed_items": "Keep completed media in the Todo list"
+            },
+            "data_description": {
+              "enable_todo_list": "Creates a Home Assistant Todo list containing all media currently checked out. Items can be checked off manually when they have been read or watched.",
+              "complete_returned_items": "Automatically marks an item as completed when it no longer appears among the current OPAC checkouts. Requires the reading progress Todo list.",
+              "keep_completed_items": "Keeps completed and returned items visible as a reading history. When disabled, returned items are removed from the list. Requires automatic completion of returned media."
+            }
+          }
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "checkout_count": {
+        "name": "Checkouts"
+      },
+      "next_due_date": {
+        "name": "Next due date"
+      },
+      "next_due_in_days": {
+        "name": "Days until next due date"
+      },
+      "overdue_count": {
+        "name": "Overdue"
+      },
+      "due_today_count": {
+        "name": "Due today"
+      },
+      "due_soon_count": {
+        "name": "Due soon"
+      },
+      "status": {
+        "name": "Status"
+      },
+      "books": {
+        "name": "Books"
+      },
+      "last_update": {
+        "name": "Last update"
+      },
+      "completed_count": {
+        "name": "Completed media"
+      },
+      "remaining_count": {
+        "name": "Remaining media"
+      }
+    },
+    "todo": {
+      "reading_list": {
+        "name": "Reading progress"
+      }
+    }
+  }
+}
