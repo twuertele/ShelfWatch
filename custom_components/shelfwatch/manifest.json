@@ -1,0 +1,12 @@
+{
+  "domain": "shelfwatch",
+  "name": "ShelfWatch",
+  "codeowners": ["@twuertele"],
+  "config_flow": true,
+  "documentation": "https://github.com/twuertele/ShelfWatch",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/twuertele/ShelfWatch/issues",
+  "requirements": ["beautifulsoup4>=4.12.0"],
+  "version": "0.2.0"
+}

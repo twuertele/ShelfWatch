@@ -1,0 +1,107 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "ShelfWatch-Konto hinzufügen",
+        "description": "Gib die Zugangsdaten für das Koha-/LMSCloud-OPAC-Konto ein. Der Kontoname ist frei wählbar und sollte die Person oder den Bibliotheksausweis beschreiben.",
+        "data": {
+          "account_name": "Kontoname",
+          "base_url": "OPAC-Basis-URL",
+          "user_id": "Benutzerkennung",
+          "password": "Passwort"
+        }
+      },
+      "reauth_confirm": {
+        "title": "ShelfWatch erneut anmelden",
+        "description": "Das OPAC hat die gespeicherten Zugangsdaten abgelehnt. Gib das aktuelle Passwort ein.",
+        "data": {
+          "password": "Passwort"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Das OPAC konnte nicht erreicht werden.",
+      "invalid_auth": "Das OPAC hat die Zugangsdaten abgelehnt.",
+      "unknown": "Unerwarteter Fehler."
+    },
+    "abort": {
+      "already_configured": "Dieses Bibliothekskonto ist bereits eingerichtet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "ShelfWatch-Optionen",
+        "description": "Lege Fälligkeiten, OPAC-Aktualisierung und die optionale Lesestatus-Liste fest. Aktiviere das Behalten erledigter Medien, damit zurückgegebene Einträge in der Liste sichtbar bleiben.",
+        "sections": {
+          "due_dates_and_updates": {
+            "name": "Fälligkeiten und Aktualisierung",
+            "data": {
+              "due_soon_days": "Bald fällig ab Tagen",
+              "update_interval_hours": "Abrufintervall in Stunden"
+            },
+            "data_description": {
+              "due_soon_days": "Legt fest, wie viele Tage vor dem Rückgabedatum eine Ausleihe als bald fällig gezählt wird. Der Standardwert beträgt 7 Tage.",
+              "update_interval_hours": "Legt fest, wie oft ShelfWatch die aktuellen Ausleihen aus dem OPAC abruft. Die Fälligkeitssensoren werden zusätzlich kurz nach dem lokalen Tageswechsel neu berechnet."
+            }
+          },
+          "reading_progress": {
+            "name": "Lesestatus und To-do-Liste",
+            "data": {
+              "enable_todo_list": "To-do-Liste für den Lesestatus erstellen",
+              "complete_returned_items": "Zurückgegebene Medien als erledigt markieren",
+              "keep_completed_items": "Erledigte Medien in der To-do-Liste behalten"
+            },
+            "data_description": {
+              "enable_todo_list": "Erstellt eine Home-Assistant-To-do-Liste mit allen aktuell ausgeliehenen Medien. Gelesene oder angesehene Medien können dort manuell abgehakt werden.",
+              "complete_returned_items": "Markiert ein Medium automatisch als erledigt, sobald es nicht mehr unter den aktuellen OPAC-Ausleihen erscheint. Benötigt die Lesestatus-To-do-Liste.",
+              "keep_completed_items": "Behält erledigte und zurückgegebene Medien als Leseverlauf sichtbar. Ist die Option aus, werden zurückgegebene Medien aus der Liste entfernt. Benötigt die automatische Erledigung zurückgegebener Medien."
+            }
+          }
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "checkout_count": {
+        "name": "Ausleihen"
+      },
+      "next_due_date": {
+        "name": "Nächste Rückgabe"
+      },
+      "next_due_in_days": {
+        "name": "Tage bis zur nächsten Rückgabe"
+      },
+      "overdue_count": {
+        "name": "Überfällig"
+      },
+      "due_today_count": {
+        "name": "Heute fällig"
+      },
+      "due_soon_count": {
+        "name": "Bald fällig"
+      },
+      "status": {
+        "name": "Status"
+      },
+      "books": {
+        "name": "Medien"
+      },
+      "last_update": {
+        "name": "Letzte Aktualisierung"
+      },
+      "completed_count": {
+        "name": "Erledigte Medien"
+      },
+      "remaining_count": {
+        "name": "Offene Medien"
+      }
+    },
+    "todo": {
+      "reading_list": {
+        "name": "Lesestatus"
+      }
+    }
+  }
+}
