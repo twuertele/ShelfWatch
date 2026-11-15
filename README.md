@@ -224,6 +224,12 @@ Anmeldung normaler Bibliotheksnutzer geeignet: Basic Auth ist deaktiviert und
 die benötigten Ausleihdaten werden auf der Kontoseite nicht über öffentliche
 Browser-API-Aufrufe geladen.
 
+Der Anmeldevorgang lädt zunächst das OPAC-Formular, übernimmt versteckte Felder
+wie das CSRF-Token und verwendet anschließend die vom Formular vorgegebenen
+Feldnamen. Koha- und LMSCloud-Installationen können sich je nach Version,
+Stadt, Betreiber oder individuellem Theme unterscheiden; bei einem anderen
+OPAC kann daher eine kleine Kompatibilitätsanpassung erforderlich sein.
+
 ShelfWatch meldet sich deshalb wie ein Browser am OPAC an und liest die
 Ausleihtabelle aus der HTML-Seite.
 

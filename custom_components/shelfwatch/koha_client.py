@@ -129,7 +129,8 @@ def login_likely_failed(html: str) -> bool:
     """Detect common OPAC login failure pages."""
     soup = BeautifulSoup(html, "html.parser")
     login_form = soup.select_one(
-        "form#auth, form[action*='opac-user.pl'] input[name='userid']"
+        "form#auth, form[action*='opac-user.pl'] input[name='userid'], "
+        "form[action*='opac-user.pl'] input[name='login_userid']"
     )
     page_text = clean_text(soup.get_text(" ", strip=True)).lower()
     failure_terms = (
@@ -295,13 +296,49 @@ class KohaClient:
         from aiohttp import ClientError, ClientResponseError
 
         try:
+            async with self._session.get(self._login_url, timeout=30) as response:
+                response.raise_for_status()
+                login_page = await response.text()
+
+            soup = BeautifulSoup(login_page, "html.parser")
+            form = soup.select_one("form[action*='opac-user.pl']")
+            if form is None:
+                raise CannotConnect("OPAC login form was not found")
+
+            form_fields = {
+                element["name"]: element.get("value", "")
+                for element in form.select("input[name]")
+                if element.get("type") not in {"button", "file", "image", "submit"}
+            }
+            user_field = next(
+                (
+                    field
+                    for field in ("login_userid", "userid")
+                    if field in form_fields
+                ),
+                None,
+            )
+            password_field = next(
+                (
+                    field
+                    for field in ("login_password", "password")
+                    if field in form_fields
+                ),
+                None,
+            )
+            if user_field is None or password_field is None:
+                raise CannotConnect("OPAC login form fields were not recognized")
+
+            form_fields[user_field] = self._user_id
+            form_fields[password_field] = self._password
+            form_action = urljoin(
+                str(response.url), form.get("action") or self._login_url
+            )
+
             async with self._session.post(
-                self._login_url,
-                data={
-                    "userid": self._user_id,
-                    "password": self._password,
-                    "koha_login_context": "opac",
-                },
+                form_action,
+                data=form_fields,
+                headers={"Referer": str(response.url)},
                 timeout=30,
             ) as response:
                 response.raise_for_status()

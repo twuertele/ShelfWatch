@@ -102,6 +102,11 @@ For the tested LMSCloud OPAC, the REST API is not suitable for simple end-user
 authentication. Basic auth is disabled, and the required checkout data is not
 loaded through public browser-side API calls.
 
+The login flow first loads the OPAC form, preserves its hidden fields such as
+the CSRF token, and then submits the field names provided by that form. Koha
+and LMSCloud installations can differ by version, city, operator, or custom
+theme, so another OPAC may require a small compatibility adjustment.
+
 ## Privacy
 
 Credentials are stored in the Home Assistant config entry. ShelfWatch does not
